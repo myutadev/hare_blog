@@ -19,7 +19,7 @@ class PostController extends Controller
         // $posts = Post::all();
         // $posts = Post::orderby('created_at', 'desc')->get();
         // $posts = Post::latest()->get();
-        $posts = Post::latest()->paginate(4);
+        $posts = Post::with('user')->latest()->paginate(4);
 
 
 
