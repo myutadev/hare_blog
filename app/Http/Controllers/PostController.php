@@ -16,7 +16,14 @@ class PostController extends Controller
      */
     public function index()
     {
-        return view('posts.index');
+        // $posts = Post::all();
+        // $posts = Post::orderby('created_at', 'desc')->get();
+        // $posts = Post::latest()->get();
+        $posts = Post::latest()->paginate(4);
+
+
+
+        return view('posts.index', compact('posts'));
     }
 
     /**
