@@ -51,7 +51,9 @@ class PostController extends Controller
             DB::rollBack();
             return back()->withInput()->withErrors($e->getMessage());
         }
-        return redirect()->route('posts.show', $post);
+        return redirect()
+            ->route('posts.show', $post)
+            ->with('notice', '記事を登録しました');
     }
 
     /**
