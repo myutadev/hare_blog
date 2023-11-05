@@ -96,7 +96,7 @@ class PostController extends Controller
 
         $file = $request->file('image');
         if ($file) {
-            $delete_file_path = 'images/posts/' . $post->image;
+            $delete_file_path = $post->image_path;
             $post->image = self::createFileName($file);
         }
         $post->fill($request->all());
@@ -113,7 +113,7 @@ class PostController extends Controller
 
                 // 画像削除
                 if (!Storage::delete($delete_file_path)) {
-                    Storage::delete('images/posts/' . $post->image);
+                    Storage::delete($post->image_path);
                     throw new \Exception('画像ファイルの削除に失敗しました');
                 }
             }
@@ -139,7 +139,7 @@ class PostController extends Controller
             $post->delete();
 
             //画像削除
-            if (!Storage::delete('images/posts/' . $post->image)) {
+            if (!Storage::delete($post->image_path)) {
                 //例外を投げてロールバック
                 throw new \Exception('画像ファイルの削除に失敗しました');
             }
