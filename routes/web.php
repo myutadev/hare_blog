@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Post;
@@ -16,8 +17,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [PostController::class,'index'])
-->name('root');
+Route::get('/', [PostController::class, 'index'])
+    ->name('root');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -36,4 +37,9 @@ Route::resource('posts', PostController::class)
     ->middleware('auth');
 
 Route::resource('posts', PostController::class)
-    ->only(['show', 'index']);  
+    ->only(['show', 'index']);
+
+
+Route::resource('posts.comments', CommentController::class)
+    ->only(['create', 'store', 'edit', 'update', 'destroy'])
+    ->middleware('auth');
